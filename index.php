@@ -41,16 +41,16 @@ echo $twitter->setGetfield($getfield)
 
 $url = 'https://api.twitter.com/1.1/search/tweets.json';
 //combiging the getfield in a string array , well just add the hashtags and then query them one by one.
-//$getfield = array(1=>'?q=#KXLDissent',2=>'?q=#RejectandProtect',3=>'?q=#CowboyIndianAlliance',4=>'?q=#nokxl',5=>'?q=#OilSands',6=>'?q=#KeystoneXL');
+$getfield = array(1=>'?q=#KXLDissent',2=>'?q=#RejectandProtect',3=>'?q=#CowboyIndianAlliance',4=>'?q=#nokxl',5=>'?q=#OilSands',6=>'?q=#KeystoneXL');
 //$getfield = '?q=#KXLDissent';
 //$getfield = '?q=#RejectandProtect';
 //$getfield = '?q=#CowboyIndianAlliance';
 //$getfield = '?q=#nokxl';
 //$getfield   = '?q=#OilSands';
 //$getfield  = '?q=#KeystoneXL';
-$getfield = array(1=>'?q=#testwithImage');
+//$getfield = array(1=>'?q=#testwithImage');
 foreach( $getfield as $k => $v){
-		echo $v;	
+//		echo $v;	
 $requestMethod = 'GET';
 $twitter = new TwitterAPIExchange($settings);
 $response = $twitter->setGetfield($v)
@@ -58,7 +58,7 @@ $response = $twitter->setGetfield($v)
                    ->performRequest();
 //var_dump(json_decode($response));
 $json_data = json_decode($response);
-var_dump($json_data);
+//var_dump($json_data);
 foreach( $json_data->statuses as $status ) {
 		//echo $status->created_at;
 		echo "\n";
@@ -70,11 +70,17 @@ foreach( $json_data->statuses as $status ) {
 		echo   $hashValue ; echo '" : "';
 		echo $status->text; echo '"';
 		echo "\n";
-		foreach($status->entities->media as $images){ 
- 			      $mediaUrl = $images->media_url;
-        		      $cmd = "wget --quiet -O\t".$hashValue.".png\t". $mediaUrl;
-        		      exec($cmd); echo "\n";
+		if ( array_key_exists("media",$status->entities)) 
+						{	
+		foreach($status->entities->media as $images)	
+						{ 
+				if ( $images->media_url != ""){
+ 			      			$mediaUrl = $images->media_url;
+        				        $cmd = "wget --quiet -O\t".$hashValue.".png\t". $mediaUrl;
+        		  	                exec($cmd); echo "\n";
+			}
 
+}
 }
 	//	$mediaUrl = $status->media->media_url;
 	//	$cmd = "wget -O".$hashValue.".png". $mediaUrl;

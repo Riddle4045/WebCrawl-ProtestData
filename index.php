@@ -38,7 +38,12 @@ echo $twitter->setGetfield($getfield)
              ->performRequest();
 **/
 $url = 'https://api.twitter.com/1.1/search/tweets.json';
-$getfield = '?q=#BookReads';
+//$getfield = '?q=#KXLDissent';
+//$getfield = '?q=#RejectandProtect';
+//$getfield = '?q=#CowboyIndianAlliance';
+//$getfield = '?q=#nokxl';
+//$getfield   = '?q=#OilSands';
+$getfield  = '?q=#KeystoneXL';
 $requestMethod = 'GET';
 
 $twitter = new TwitterAPIExchange($settings);
@@ -49,8 +54,14 @@ $response = $twitter->setGetfield($getfield)
 $json_data = json_decode($response);
 
 foreach( $json_data->statuses as $status ) {
-		echo $status->created_at;
+		//echo $status->created_at;
 		echo "\n";
-		echo $status->text;
+		$hashstring = $status->created_at;
+	//	echo $hashstring;
+		//echo "\n";
+		$hashValue = hash("md5",$hashstring);
+		echo '"';
+		echo   $hashValue ; echo '" : "';
+		echo $status->text; echo '"';
 		echo "\n";
-} 
+}  

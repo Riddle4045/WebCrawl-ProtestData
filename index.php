@@ -5,9 +5,9 @@ require_once('TwitterAPIExchange.php');
 /** Set access tokens here - see: https://dev.twitter.com/apps/ **/
 $settings = array(
     'oauth_access_token' => "2451534170-ISETliFOuTR2BYoVSLCqZO8tRrOmSX7SfMcuECa",
-    'oauth_access_token_secret' => "...",
-    'consumer_key' => "...",
-    'consumer_secret' => "....."
+    'oauth_access_token_secret' => "mRB9c9deqEdSIjblXf6wgm05N6fizKJohNFykYfjFuWYx",
+    'consumer_key' => "isYSRFHsJGZeklzczLtNXbA8V",
+    'consumer_secret' => "YAW2RhMjHiWJ3V3YJnm9yf5AZ2HdstszxTLJpAdaOq9j2Todon"
 );
 
 /** URL for REST request, see: https://dev.twitter.com/docs/api/1.1/ **/
@@ -38,12 +38,19 @@ echo $twitter->setGetfield($getfield)
              ->performRequest();
 **/
 $url = 'https://api.twitter.com/1.1/search/tweets.json';
-$getfield = '?q=#RejectAndProtect';
+$getfield = '?q=#BookReads';
 $requestMethod = 'GET';
 
 $twitter = new TwitterAPIExchange($settings);
 $response = $twitter->setGetfield($getfield)
                     ->buildOauth($url, $requestMethod)
                    ->performRequest();
-var_dump(json_decode($response));
+//var_dump(json_decode($response));
+$json_data = json_decode($response);
 
+foreach( $json_data->statuses as $status ) {
+		echo $status->created_at;
+		echo "\n";
+		echo $status->text;
+		echo "\n";
+} 

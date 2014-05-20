@@ -57,50 +57,14 @@ $url  = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
 //$getfield = array(1=>'?q=#testwithImage');
 
 //The following getfield is set for retrieving all the tweets from a user 
-
-$screen_name = $argv[1];
-
 $getfield = '?screen_name=I_riddle_dev&count=200&include_rts=1';
-echo $getfield;
 
-/*foreach( $getfield as $k => $v){
-//		echo $v;	
-$requestMethod = 'GET';
-$twitter = new TwitterAPIExchange($settings);
-$response = $twitter->setGetfield($v)
-                    ->buildOauth($url, $requestMethod)
-                   ->performRequest();
-//var_dump(json_decode($response));
-$json_data = json_decode($response);
-var_dump($json_data);
-foreach( $json_data->statuses as $status ) {
-		//echo $status->created_at;
-		echo "\n";
-		$hashstring = $status->created_at;
-	//	echo $hashstring;
-		//echo "\n";
-		$hashValue = hash("md5",$hashstring);
-		echo '"';
-		echo   $hashValue ; echo '" : "';
-		echo $status->text; echo '"';
-		echo "\n";
-		if ( array_key_exists("media",$status->entities)) 
-						{	
-		foreach($status->entities->media as $images)	
-						{ 
-				if ( $images->media_url != ""){
- 			      			$mediaUrl = $images->media_url;
-        				        $cmd = "wget --quiet -O\t".$hashValue.".png\t". $mediaUrl;
-        		  	                exec($cmd); echo "\n";
-			}
 
-}
-}
-	//	$mediaUrl = $status->media->media_url;
-	//	$cmd = "wget -O".$hashValue.".png". $mediaUrl;
-	//	echo $cmd;
-}*/
-
+//TODO : get all the tweets
+//Currently only first 200 tweets are retireveed using the "count" parameter.
+//Use the  "since_id" and "max_id" parameters and make repeated requests to  to get  all the tweets
+//refer to the following link for the statergy :https://dev.twitter.com/docs/working-with-timelines
+//use the code from index.php to download all the media w.r.t to a tweet 
 $requestMethod = 'GET';
 $twitter = new TwitterAPIExchange($settings);
 $response = $twitter->setGetfield($getfield)

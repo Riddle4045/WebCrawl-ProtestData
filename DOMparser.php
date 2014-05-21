@@ -3,6 +3,7 @@ ini_set('display_errors', 1);
 require_once('TwitterAPIExchange.php');
 require_once('simple_html_dom.php');
 
+
 /** Set access tokens here - see: https://dev.twitter.com/apps/ **/
 $settings = array(
     'oauth_access_token' => "2451534170-ISETliFOuTR2BYoVSLCqZO8tRrOmSX7SfMcuECa",
@@ -16,7 +17,7 @@ $settings = array(
 $url  = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
 
 //The following getfield is set for retrieving all the tweets from a user 
-$getfield = '?screen_name=@apblake&count=200&include_rts=1';
+$getfield = '?screen_name=I_riddle_dev&count=200&include_rts=1';
 
 //TODO : get all the tweets
 //Currently only first 200 tweets are retireveed using the "count" parameter.
@@ -35,13 +36,21 @@ $json_data = json_decode($response);
 // Create DOM from URL or file
 $html = file_get_html('http://www.willsolisphotography.com/oil-and-dissent-protesting-the-keystone-xl-pipeline-in-washington-dc.html');
 
-// Find all images
-foreach($html->find('img') as $element)
-       echo $element->src;
-	   echo  "\n";
-
+$url = "http://www.willsolisphotography.com/oil-and-dissent-protesting-the-keystone-xl-pipeline-in-washington-dc.html";
 // Find all links
-foreach($html->find('a') as $element)
-       echo $element->href ;
-	   echo "\n";
+foreach($html->find('div[id=480451252355491466-gallery]') as $element){
+		foreach($element->find('a') as $a ) {
+	//	echo  $url.$a->href."\n";
+	//	echo  $a->title."\n";
+		$hashstring  = $a->href;
+		$hashValue = hash("md5",$hashstring);
+		echo '"';
+		echo   $hashValue ; echo '" : "';
+		echo $a->title; echo '"';
+		echo "\n";
+		$mediaUrl = $url.$a->href;
+        	$cmd = "wget --quiet -O\t".$hashValue.".png\t". $mediaUrl;
+        	exec($cmd); echo "\n";
+	
+}}
   

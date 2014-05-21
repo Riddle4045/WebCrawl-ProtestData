@@ -38,6 +38,10 @@ $html = file_get_html('http://www.willsolisphotography.com/oil-and-dissent-prote
 
 $url = "http://www.willsolisphotography.com/oil-and-dissent-protesting-the-keystone-xl-pipeline-in-washington-dc.html";
 // Find all links
+//NOTE that the div id used here is very specific to the site I want to crawl
+
+//TODO : make the div id's as argument and try to automate the code as much as possible
+
 foreach($html->find('div[id=480451252355491466-gallery]') as $element){
 		foreach($element->find('a') as $a ) {
 	//	echo  $url.$a->href."\n";

@@ -2,6 +2,14 @@
 ini_set('display_errors', 1);
 require_once('TwitterAPIExchange.php');
 
+
+
+
+//TODO : retireve @user from retweets
+//TODO : INCLUDE stopping condition
+//TODO : beig iterating over  @user_data
+
+
 /** Set access tokens here - see: https://dev.twitter.com/apps/ **/
  $settings = array(
     'oauth_access_token' => "..-..",

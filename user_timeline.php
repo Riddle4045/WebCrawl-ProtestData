@@ -205,8 +205,6 @@ foreach ($users as $user) {
 }
 
 
-echo "$%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$4";
-print_r($new_users);
 //from the list of all the users retweeting the concening tweets
 foreach ($new_users as $user) {
     if (!in_array($user, $GLOBALS['processed_users'], $user)) {
@@ -215,3 +213,4 @@ foreach ($new_users as $user) {
     }
 }
 echo "Number of tweets processed :" . $num_tweets . "\n";
+orint_r($new_users);

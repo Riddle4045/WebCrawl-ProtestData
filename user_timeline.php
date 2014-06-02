@@ -52,6 +52,16 @@ $keywords = array(1 => '?q=#KXLDissent', 2 => '?q=#RejectandProtect', 3 => '?q=#
 $rate_limit_counter = 0;
 
 /*
+ * utility function to reset all globals when one user is done
+ */
+function resetGlobals() {
+    $max_id = 999999999999999999;
+//TODO :stupid way of getting out the loop --- fix this you are bettter than this !
+    $GLOBALS['new_max_id'] = $max_id + 1;
+    $GLOBALS['old_max_id'] = $max_id;
+}
+
+/*
  * add those user from the text of the collected tweets that have retweeted about
  * keystone XL pipeline.
  */
@@ -94,6 +104,7 @@ function processData($json_data, $user) {
         if ($is_keyStone) {
             $hashValue = hash("md5", $hashstring);
             writeTweet($status, $hashValue);
+            addNewUsers($status->text);
             $GLOBALS['num_tweets'] = $GLOBALS['num_tweets'] + 1;
             if (array_key_exists("media", (array) $status->entities)) {
                 downLoadImages($status, $hashValue);
@@ -125,13 +136,17 @@ function downLoadImages($status, $hashValue) {
 }
 
 function makeRequests($get_field) {
-
+    if ( $GLOBALS['rate_limit_counter'] >= 180){
+        sleep(900);
+    } else {
     // $first_getfield = '?screen_name=JamesFrancoTV&max_id=473257670443409408&count=200&include_rts=1';
     $requestMethod = 'GET';
     $twitter = new TwitterAPIExchange($GLOBALS['settings']);
     $response = $twitter->setGetfield($get_field)->buildOauth($GLOBALS['url'], $requestMethod)->performRequest();
     $json_data = json_decode($response);
+    $GLOBALS['rate_limit_counter']++;
     return $json_data;
+    }
 }
 
 /*
@@ -183,14 +198,18 @@ function getAllData($user) {
 foreach ($users as $user) {
     if (!in_array($user, $GLOBALS['processed_users'])) {
         echo "Processing user..." . $user . "\n";
+           resetGlobals();
         getAllData($user);
     }
 }
 
 
+echo "$%$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$4";
+print_r($new_users);
 //from the list of all the users retweeting the concening tweets
 foreach ($new_users as $user) {
     if (!in_array($user, $GLOBALS['processed_users'], $user)) {
+        resetGlobals();
         getAllData($user);
     }
 }

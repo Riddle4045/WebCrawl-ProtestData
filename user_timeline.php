@@ -12,11 +12,12 @@ require_once('TwitterAPIExchange.php');
 
 /** Set access tokens here - see: https://dev.twitter.com/apps/ **/
  $settings = array(
-    'oauth_access_token' => "..-..",
-    'oauth_access_token_secret' => "..",
-    'consumer_key' => "..",
-    'consumer_secret' => ".."
+    'oauth_access_token' => "2451534170-ISETliFOuTR2BYoVSLCqZO8tRrOmSX7SfMcuECa",
+    'oauth_access_token_secret' => "mRB9c9deqEdSIjblXf6wgm05N6fizKJohNFykYfjFuWYx",
+    'consumer_key' => "isYSRFHsJGZeklzczLtNXbA8V",
+    'consumer_secret' => "YAW2RhMjHiWJ3V3YJnm9yf5AZ2HdstszxTLJpAdaOq9j2Todon"
 );
+
 //URL for retrieveing tweets for a user (user_d)
 $url  = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
 $max_id = 0;
@@ -31,13 +32,41 @@ $max_id = 0;
  * first_getfield is call without the max_id or since ID , once we get a json object from the first call
  * the max_id and since_id are determined 
  */
-
-$users = array(1=>'CamThompsonWNEW',2=>'Organizerx',3=>'Cool_Revolution',4=>'johnzangas',5=>'rousseau_ist',6=>'Gen_Knoxx',7=>'jamesFTinternet',7=>'@Agent350',8=>'ARStrasser',9=>'johnzangas',10=>'350',10=>'bri_xy');
-$keywords = array(1=>'?q=#KXLDissent',2=>'?q=#RejectandProtect',3=>'?q=#CowboyIndianAlliance',4=>'?q=#nokxl',5=>'?q=#OilSands',6=>'?q=#KeystoneXL',7=>'#NoKXL');
-foreach($users as $user){
-    getAllData($user);
+$num_tweets = 0;
+$num_images = 0;
+$new_users = array();
+$pattern = "/[@][A-Za-z0-9]+/";
+$processed_users = array();
+$processed_user_count = 0;
+$num_elements_in_new_user= count($new_users);
+function addNewUsers($string){
+	$user_list = array();
+	//$pattern = "/[@][A-Za-z0-9]+/";
+	if ($GLOBALS['num_elements_in_new_user'] < 500 ) {
+			if( preg_match_all($GLOBALS['pattern'],$string,$matches)){
+	     				 foreach($matches[0] as $k => $v ) {
+							//getAllData($v);
+							$list_size = array_push($user_list,$v);											          	    $GLOBALS['num_elements_in_new_user'] =array_push($GLOBALS['new_users'],$v);
+							}
 }
-function processData($json_data){
+}
+}
+
+$users = array(1=>'@CamThompsonWNEW',2=>'@Organizerx',3=>'@Cool_Revolution',4=>'@johnzangas',5=>'@rousseau_ist',6=>'@Gen_Knoxx',7=>'@jamesFTinternet',8=>'@Agent350',9=>'@ARStrasser',10=>'@johnzangas',11=>'@350',11=>'@bri_xy');
+$keywords = array(1=>'?q=#KXLDissent',2=>'?q=#RejectandProtect',3=>'?q=#CowboyIndianAlliance',4=>'?q=#nokxl',5=>'?q=#OilSands',6=>'?q=#KeystoneXL',7=>'#NoKXL');
+
+
+foreach($users as $user){
+	if ( ! in_array($user,$GLOBALS['processed_users'])){
+ //			   echo "Processing user...".$user;
+			   getAllData($user);
+}
+}
+
+//print_r($new_users);
+
+function processData($json_data,$user){
+
 foreach( $json_data as $status ) {
         //echo $status->created_at;
         //echo "\n";
@@ -58,10 +87,13 @@ foreach( $json_data as $status ) {
         if ($is_keyStone){
         $hashValue = hash("md5",$hashstring);
         echo "\n";
-		echo '"';
+	echo '"';
         echo   $hashValue ; echo '" : "';
         echo $status->text; echo '"';
         echo "\n";
+	$GLOBALS['num_tweets'] = $GLOBALS['num_tweets']  + 1;
+	$processed_user_count = array_push($GLOBALS['processed_users'],$user);
+	addNewUsers($status->text);
         if ( array_key_exists("media",$status->entities))
                         {
         foreach($status->entities->media as $images)
@@ -70,11 +102,14 @@ foreach( $json_data as $status ) {
                             $mediaUrl = $images->media_url;
                                 $cmd = "wget --quiet -O\t".$hashValue.".png\t". $mediaUrl;
                                 exec($cmd); echo "\n";
+				$GLOBALS['num_images'] = $GLOBALS['num_images'] + 1;
+			 
             }
 
 }
 }
 } }
+
 }
 
 function getAllData($user) {
@@ -84,9 +119,9 @@ $twitter = new TwitterAPIExchange($GLOBALS['settings']);
 $response = $twitter->setGetfield($first_getfield)->buildOauth($GLOBALS['url'], $requestMethod)->performRequest();
 $json_data = json_decode($response);
 
-
-processData($json_data);
-
+if ( !empty($json_data) ) {
+processData($json_data,$user);
+}
 /**
  * getfield including the max_id for subsequent calls 
  */
@@ -114,3 +149,12 @@ while (count((array)$json_data)&& $new_max_id != 0){
                 }
 }
 }
+
+
+foreach($new_users as $user) {
+        if ( ! in_array($user,$GLOBALS['processed_users'],$user)){
+    getAllData($user);
+}
+	
+}
+

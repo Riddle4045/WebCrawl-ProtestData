@@ -137,6 +137,7 @@ function downLoadImages($status, $hashValue) {
 
 function makeRequests($get_field) {
     if ( $GLOBALS['rate_limit_counter'] >= 180){
+         echo "Going to sleep for 15 minutes :P something you ll never have !!!! ";
         sleep(900);
     } else {
     // $first_getfield = '?screen_name=JamesFrancoTV&max_id=473257670443409408&count=200&include_rts=1';

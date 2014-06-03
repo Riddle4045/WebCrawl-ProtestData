@@ -213,4 +213,4 @@ foreach ($new_users as $user) {
     }
 }
 echo "Number of tweets processed :" . $num_tweets . "\n";
-orint_r($new_users);
+print_r($new_users);

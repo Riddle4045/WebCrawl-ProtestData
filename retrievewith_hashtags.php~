@@ -25,7 +25,10 @@ $settings = array(
 -//$url = 'https://api.twitter.com/1.1/blocks/create.json';
 $url = 'https://api.twitter.com/1.1/search/tweets.json';
 //list of keywords for worldcup event
-$keywords  = array(1=>'?q=#2014Fifa',2=>'?q=#WorldCup',3=> '?q=#WorldCup2014',4=>'?q=#WorldCupSoccer',5=>'?q=#CocaCola',6=>'?q=#Fifa2014',7=>'?q=#Brasil',8=>'?q #2014',9 =>'?q=#FIFAWorldCup');
+//$keywords  = array(1=>'?q=#2014Fifa',2=>'?q=#WorldCup',3=> '?q=#WorldCup2014',4=>'?q=#WorldCupSoccer',5=>'?q=#CocaCola',6=>'?q=#Fifa2014',7=>'?q=#Brasil',8=>'?q #2014',9 =>'?q=#FIFAWorldCup'.10=>'?q#Bresil' 11=>'?q#OpWorldCup',12=>'?q#OpWorldCup2014',13=>'?q#FIFAgoHome',14=>'?q#WorldCup2014',15=>'?q#NAOVAITERCOPA',16=>'?q#NaoVaiTerFIFA',17=>'?q#NoWorldCup',18=>'?q#WeNeedFoodNoFootball',19=>'?q#Brasil2014',20=>'?q#Brazil',21=>'?q#FIFA',22=>'?q#NaoWorldCup',23=>'?q#VemPraRua',24=>'?q#Weltmeisterschaft',25=>'?q#μουντιάλ',26=>'?q#mondiali',27=>'?q#mundial',28=>'?q#BecauseFutbol');
+$keywords  = array(1=>'?q=#2014Fifa',2=>'?q=#WorldCup',3=>'?q=#WorldCup2014',4=>'?q=#WorldCupSoccer',5=>'?q=#CocaCola',6=>'?q=#Fifa2014',7=>'?q=#Brasil',8=>'?q #2014',9 =>'?q=#FIFAWorldCup',
+10=>'?q=#Bresil', 11=>'?q=#OpWorldCup',12=>'?q=#OpWorldCup2014',13=>'?q=#FIFAgoHome',14=>'?q=#WorldCup2014',15=>'?q=#NAOVAITERCOPA',16=>'?q=#NaoVaiTerFIFA',17=>'?q=#NoWorldCup',18=>'?q=#WeNeedFoodNoFootball',
+19=>'?q=#Brasil2014',20=>'?q=#Brazil',21=>'?q=#FIFA',22=>'?q=#NaoWorldCup',23=>'?q=#VemPraRua',24=>'?q=#Weltmeisterschaft',25=>'?q=#μουντιάλ',26=>'?q=#mondiali',27=>'?q=#mundial',28=>'?q=#BecauseFutbol');
 
 //this rate limit counter keeps track of number of get request to make sure we dont exceed  rate limit.
 $rate_limit_counter = 0;
@@ -92,6 +95,7 @@ function makeRequests($get_field) {
 
 function getAllData($keyword) {
 
+    echo "***************************PROCESSING KEYWORD";echo $keyword;echo "*******************";
     $first_getfield = $keyword;
     $json_data = makeRequests($first_getfield);
     if (!empty($json_data)) {

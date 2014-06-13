@@ -49,10 +49,14 @@ $GLOBALS['old_max_id'] = $max_id;
 //$keywords = array(1 => '?q=#KXLDissent', 2 => '?q=#RejectandProtect', 3 => '?q=#CowboyIndianAlliance', 4 => '?q=#nokxl', 5 => '?q=#OilSands', 6 => '?q=#KeystoneXL', 7 => '#NoKXL');
 
 //seed users for world cup event
-$users = array(1 => "@ghanafaofficial's",2=>'@AyewAndre',3=>'@FifaWCBrazil',4=>'@FIFAWorldCupTM',5=>'@Fifacom',6=>'@JeromeValcke',7=>'@FernandaLimaBah',8=>'@RHilbertOficial',9=>'@OfficialCafu');
+$users = array(1 => "@ghanafaofficial's",2=>'@AyewAndre',3=>'@FifaWCBrazil',4=>'@FIFAWorldCupTM',5=>'@Fifacom',6=>'@JeromeValcke',7=>'@FernandaLimaBah',8=>'@RHilbertOficial',9=>'@OfficialCafu',10=>'@FIFAWorldCup',11=>'@WayneRooney',12=>'@philjones4',
+13=>'@Alex_OxChambo',14=>'@JackWilshere',15=>'@glen_johnson',16=>'@England',17=>'@FifaWorldCup',18=>'@Fifacom',19=>'@Brazuca',20=>'@England',21=>'@FA');
 
 //list of keywords for worldcup event
-$keywords  = array(1=>'?q=#2014Fifa',2=>'?q=#WorldCup',3=> '?q=#WorldCup2014',4=>'?q=#WorldCupSoccer',5=>'?q=#CocaCola',6=>'?q=#Fifa2014',7=>'?q=#Brasil',8=>'?q #2014',9 =>'?q=#FIFAWorldCup');
+//$keywords  = array(1=>'?q=#2014Fifa',2=>'?q=#WorldCup',3=> '?q=#WorldCup2014',4=>'?q=#WorldCupSoccer',5=>'?q=#CocaCola',6=>'?q=#Fifa2014',7=>'?q=#Brasil',8=>'?q #2014',9 =>'?q=#FIFAWorldCup');
+$keywords  = array(1=>'?q=#2014Fifa',2=>'?q=#WorldCup',3=>'?q=#WorldCup2014',4=>'?q=#WorldCupSoccer',5=>'?q=#CocaCola',6=>'?q=#Fifa2014',7=>'?q=#Brasil',8=>'?q #2014',9 =>'?q=#FIFAWorldCup',
+10=>'?q=#Bresil', 11=>'?q=#OpWorldCup',12=>'?q=#OpWorldCup2014',13=>'?q=#FIFAgoHome',14=>'?q=#WorldCup2014',15=>'?q=#NAOVAITERCOPA',16=>'?q=#NaoVaiTerFIFA',17=>'?q=#NoWorldCup',18=>'?q=#WeNeedFoodNoFootball',
+19=>'?q=#Brasil2014',20=>'?q=#Brazil',21=>'?q=#FIFA',22=>'?q=#NaoWorldCup',23=>'?q=#VemPraRua',24=>'?q=#Weltmeisterschaft',25=>'?q=#μουντιάλ',26=>'?q=#mondiali',27=>'?q=#mundial',28=>'?q=#BecauseFutbol');
 
 //this rate limit counter keeps track of number of get request to make sure we dont exceed  rate limit.
 $rate_limit_counter = 0;

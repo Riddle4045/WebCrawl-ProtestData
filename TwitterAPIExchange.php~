@@ -145,7 +145,7 @@ class TwitterAPIExchange
             {
 		//var_dump($g);
                 $split = explode('=', $g);
-		//var_dump($split);
+		var_dump($split);
                 $oauth[$split[0]] = $split[1];
             }
         }

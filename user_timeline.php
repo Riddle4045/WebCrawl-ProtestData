@@ -43,10 +43,16 @@ $GLOBALS['old_max_id'] = $max_id;
 
 
 //seed users to start crawling  from
-$users = array(1 => '@CamThompsonWNEW', 2 => '@Organizerx', 3 => '@Cool_Revolution', 4 => '@johnzangas', 5 => '@rousseau_ist', 6 => '@Gen_Knoxx', 7 => '@jamesFTinternet', 8 => '@Agent350', 9 => '@ARStrasser', 10 => '@johnzangas', 11 => '@350', 11 => '@bri_xy');
+//$users = array(1 => '@CamThompsonWNEW', 2 => '@Organizerx', 3 => '@Cool_Revolution', 4 => '@johnzangas', 5 => '@rousseau_ist', 6 => '@Gen_Knoxx', 7 => '@jamesFTinternet', 8 => '@Agent350', 9 => '@ARStrasser', 10 => '@johnzangas', 11 => '@350', 11 => '@bri_xy');
 
 //keywords to hunt for in the tweets.
-$keywords = array(1 => '?q=#KXLDissent', 2 => '?q=#RejectandProtect', 3 => '?q=#CowboyIndianAlliance', 4 => '?q=#nokxl', 5 => '?q=#OilSands', 6 => '?q=#KeystoneXL', 7 => '#NoKXL');
+//$keywords = array(1 => '?q=#KXLDissent', 2 => '?q=#RejectandProtect', 3 => '?q=#CowboyIndianAlliance', 4 => '?q=#nokxl', 5 => '?q=#OilSands', 6 => '?q=#KeystoneXL', 7 => '#NoKXL');
+
+//seed users for world cup event
+$users = array(1 => "@ghanafaofficial's",2=>'@AyewAndre',3=>'@FifaWCBrazil',4=>'@FIFAWorldCupTM',5=>'@Fifacom',6=>'@JeromeValcke',7=>'@FernandaLimaBah',8=>'@RHilbertOficial',9=>'@OfficialCafu');
+
+//list of keywords for worldcup event
+$keywords  = array(1=>'?q=#2014Fifa',2=>'?q=#WorldCup',3=> '?q=#WorldCup2014',4=>'?q=#WorldCupSoccer',5=>'?q=#CocaCola',6=>'?q=#Fifa2014',7=>'?q=#Brasil',8=>'?q #2014',9 =>'?q=#FIFAWorldCup');
 
 //this rate limit counter keeps track of number of get request to make sure we dont exceed  rate limit.
 $rate_limit_counter = 0;
@@ -94,7 +100,7 @@ function processData($json_data, $user) {
             $GLOBALS['max_id'] = $status->id;
         }
 
-        $is_keyStone = false;
+        $is_keyStone = true;
         foreach ($GLOBALS['keywords'] as $keyword) {
             if (strpos($status->text, $keyword)) {
 
@@ -214,3 +220,6 @@ foreach ($new_users as $user) {
 }
 echo "Number of tweets processed :" . $num_tweets . "\n";
 print_r($new_users);
+
+//world cup hashtags:Fifa #2014Fifa #WorldCup #WorldCup2014 #WorldCupSoccer #CocaCola #Fifa2014 #Brasil #2014
+

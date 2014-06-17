@@ -501,10 +501,12 @@ class tmhOAuth {
       'headers'   => $headers
     );
     $options = array_merge($this->default_options(), $options);
-
+   // print_r($options);
     if ($useauth) {
+       echo "making an authenticated request..\n";
       return $this->user_request($options);
     } else {
+      echo "making an un-authenticaed request\n";
       return $this->unauthenticated_request($options);
     }
   }
@@ -605,6 +607,8 @@ class tmhOAuth {
     $this->metrics['last_bytes']     = 0;
     $this->config['is_streaming']    = true;
     $this->request($method, $url, $params);
+   // print_r($this->config);
+      // print_r($url);
   }
 
   /**

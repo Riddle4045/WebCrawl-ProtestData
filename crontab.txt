@@ -1,1 +1,0 @@
-*/1 * * * * /usr/bin/php -q  /home/hduser/Documents/WebCrawl-ProtestData/preg_match.php > /home/hduser/Documents/cronoutput.txt

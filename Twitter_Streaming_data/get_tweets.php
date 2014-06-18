@@ -16,7 +16,7 @@ $username = 'I_riddle_dev'; // replace with your account
 $password = 'Luk34tac'; // replace with your account
 
 $isLoginSucess = false;
-$_keywords = array('twitter','facebook');
+$_keywords = array('#Bresil','#OpWorldCup','#OpWorldCup2014','#FIFAgoHome','#WorldCup2014','#NAOVAITERCOPA','#NaoVaiTerFIFA','#NoWorldCup','#WeNeedFoodNoFootball','#Brasil2014','#Brazil','#FIFA','#NaoWorldCup','#VemPraRua','#Weltmeisterschaft','#μουντιάλ','#mondiali','#mundial','#BecauseFutbol','#BoycottBrazil2014','#OpBoycottCup','#NÃOVAITERCOPA','#NOFIFA');
 
 //setting up the Auth params
 $_consumer_key = "isYSRFHsJGZeklzczLtNXbA8V";
@@ -35,13 +35,10 @@ $config = array(
 
 $twitter = new tmhOAuth($config);
 
- function myCallback($data){
-            echo "callBack called";
-            var_dump($data);
-}
-
 $method = 'POST';
 $params = array('track'=>"facebook");
-$twitter->streaming_request($method,$url,$params,'myCallback');
+$twitter->streaming_request($method,$url,$params,'streamRequestCallBack');
 
-var_dump($twitter->response);
+function streamRequestCallBack($data) {
+	var_dump($data);
+}

@@ -8,7 +8,7 @@
 		$list = $db->listCollections();
 	 //	$collection = $db->raretweets; 
 	//	$collection2 = $db->tweets;
-		
+
 
 
 		//make the regex object that contiains the qyery 
@@ -16,7 +16,7 @@
         //$keywords = array("band","bank","bass","crane","mouse","chip","tank","plant");
 		$keywords = array("bass","face","mouse","speaker","watch"); //new keywords that are used in Dr. Kate's paper.
 		foreach($keywords as $keyword){
-		writeTexttoFile($list,$keyword);
+			writeTexttoFile($list,$keyword);
 		}		
 
 
@@ -39,12 +39,13 @@
                         $document = $cursor->getNext();
                         $text = $document['text'];
 						$tweet = $text;
-						$result = preg_replace("/[^a-zA-Z0-9]+/", " ", $tweet);
+
+/**						$result = preg_replace("/[^a-zA-Z0-9]+/", " ", $tweet);
 						$resutl =  preg_replace('/\s+/', ' ',$result);
-						$result =  str_replace(' ', '_',$result);
+						$result =  str_replace(' ', '_',$result);  **/
 						//str_replace(" ","_",$tweet);
-						echo $tweet;
-						echo "\n";
+//						echo $tweet;
+//						echo "\n";
 						$text = $text."\n";
 						$numWords = getWordLength($text);
 						$entities = $document['entities'];
@@ -57,6 +58,7 @@
 						if ( $lang == "en") {
 								$id = $document['id'];
 								$text = $id." : ".$text;
+								echo $text;
 								//file_put_contents($path,$text,FILE_APPEND);
 								if(hasImage($entities)){
 									//	downLoadImage($entities,$result,$keyword);
@@ -67,6 +69,7 @@
     }
 }
 }
+	return $frequencies;
 }
 //get number of words in a sentence.
 function getWordLength($text) {
@@ -103,6 +106,8 @@ function downLoadImage($entities,$id,$keyword) {
         
     }
 }
-}}
+}
+}
+
 ?>
 
